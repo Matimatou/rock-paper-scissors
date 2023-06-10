@@ -7,11 +7,15 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase(); // Convert the player selection to standard to make it case insensitive
     const result = choices.indexOf(playerSelection) - choices.indexOf(computerSelection);
-    return result === 0
-        ? `Draw ! You both choosed ${playerSelection}`
-        : result === 1 || result === -2
-            ? `You Won ! ${playerSelection} beats ${computerSelection}`
-            : `You Lose ! ${computerSelection} beats ${playerSelection}`;
+    if (result === 0) {
+        return `Draw! You both chose ${playerSelection}`;
+    } else if (result === 1 || result === -2) {
+        return `You Won! ${playerSelection} beats ${computerSelection}`;
+    } else if (result === -1 || result === 2) {
+        return `You Lose! ${computerSelection} beats ${playerSelection}`;
+    } else {
+        return "Invalid selection. Please choose 'rock', 'paper', or 'scissors'.";
+    }
 }
 
 function game(x) {

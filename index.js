@@ -1,3 +1,4 @@
+let round = 0;
 const choices = ['Rock', 'Paper', 'Scissors']
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3); // an integer between 0 and 2
@@ -5,7 +6,9 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase(); // Convert the player selection to standard to make it case insensitive
+    // Convert the player selection to standard to make it case insensitive
+    playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
+
     const result = choices.indexOf(playerSelection) - choices.indexOf(computerSelection);
     if (result === 0) {
         return `Draw! You both chose ${playerSelection}`;
@@ -21,15 +24,26 @@ function playRound(playerSelection, computerSelection) {
 function game(x) {
     let round = 0;
     while (round < x) {
-        let choice = prompt("Your moov : ");
-        console.log(playRound(choice, getComputerChoice()));
         round++;
     }
 }
 
-function printInfo() {
-    console.log("Avaible moov : Rock, Paper, Scissors")
-}
+// First we shall get the buttons elements as a nodelist
+const buttonsList = document.querySelectorAll("button");
 
+// 
+function play(e) {
+    const choice = e.target.getAttribute("data-key");
+    const message = playRound(choice, getComputerChoice());
+    console.log(message);
+
+    round++;
+}
+// Then we will apply to all buttons an eventlistener to get the moove that's been played
+buttonsList.forEach((button) => {
+    button.addEventListener("click", play)
+});
+/*
 printInfo();
 game(2);
+*/
